@@ -5,10 +5,7 @@ from typing import List
 
 from ..Script import Script
 
-##  Performs a search-and-replace on all g-code.
-#
-#   Due to technical limitations, the search can't cross the border between
-#   layers.
+#  Performs a search-and-replace on all g-code.
 class VaryTempWithHeight(Script):
     def getSettingDataString(self):
         return """{
@@ -96,73 +93,3 @@ class VaryTempWithHeight(Script):
             data[current_layer] = data[current_layer] + prepend_gcode
             #return data
         return data
-        # for index, layer in enumerate(data):
-        #     lines = layer.split("\n")
-        #     #Scroll each line of instruction for each layer in the G-code
-        #     for line in lines:
-        #         # first positive layer reached
-        #         if ";layer:0" in line:
-        #             layers_started = true
-        #         # count nbr of negative layers (raft)
-        #         elif ";layer:-" in line:
-        #             nbr_negative_layers += 1
-        #         if not layers_started:
-        #             continue
-
-        #         # if a z instruction is in the line, read the current z
-        #         if self.getvalue(line, "z") is not none:
-        #             current_z = self.getvalue(line, "z")
-
-        #         if selection_value == "height":
-        #             # ignore if the line is not g1 or g0
-        #             if self.getvalue(line, "g") != 1 and self.getvalue(line, "g") != 0:
-        #                 continue
-
-        #             # this block is executed once, the first time there is a g
-        #             # command, to get the z offset (z for first positive layer)
-        #             if not got_first_g_cmd_on_layer_0:
-        #                 layer_0_z = current_z - initial_layer_height
-        #                 got_first_g_cmd_on_layer_0 = true
-
-        #             current_height = current_z - layer_0_z
-        #             if (current_height % height_inc) > layer_height:  #####
-        #                 continue  #you have got the correct layer 
-
-        #         # decrease at layer
-        #         else:
-        #             if not line.startswith(";layer:"):
-        #                 continue
-        #             current_layer = line[len(";layer:"):]
-        #             try:
-        #                 current_layer = int(current_layer)
-
-        #             # couldn't cast to int. something is wrong with this
-        #             # g-code data
-        #             except valueerror:
-        #                 continue
-        #             if (current_layer % layer_inc) !=0:
-        #                 continue
-
-        #         prepend_gcode = ";type:custom\n"
-        #         prepend_gcode += ";added code by post processing\n"
-        #         prepend_gcode += ";script: varytempwithheight.py\n"
-        #         new_temp = temperature_start
-        #         if selection_value == "height":
-        #             prepend_gcode += ";current z: {z}\n".format(z = current_z)
-        #             prepend_gcode += ";current height: {height}\n".format(height = current_height)
-        #             new_temp -= int(current_z / height_inc) * temp_inc
-        #         else:
-        #             prepend_gcode += ";current layer: {layer}\n".format(layer = current_layer)
-        #             new_temp -= int(current_layer / layer_inc) * temp_inc
-        #         # set extruder temperature
-        #         prepend_gcode += self.putvalue(m = 104, s = new_temp) + "; new temperature\n"
-        #         # prepend_gcode +=  "\n m104 s" + new_temp + " ; new temperature\n"
-               
-        #         layer = prepend_gcode + layer
-        #         #layer = layer+'\n ;asm'
-
-        #         # override the data of this layer with the
-        #         # modified data
-        #         data[index] = layer
-        #         return data
-        # return data
