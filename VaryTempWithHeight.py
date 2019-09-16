@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Ruben Dulek
+# Created by AbhishekSinghMaurya @2019
 # The PostProcessingPlugin is released under the terms of the AGPLv3 or higher.
 
 from typing import List
